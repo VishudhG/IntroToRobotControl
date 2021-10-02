@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TimedAutoDrive;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -25,6 +26,7 @@ public class RobotContainer {
   private final Joystick _rightJoystick;
   private final TankDrive _tankDrive;
   private final ArcadeDrive _arcadeDrive;
+  private final TimedAutoDrive _tAD;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -34,6 +36,8 @@ public class RobotContainer {
     _rightJoystick = new Joystick(Constants.USBOrder.One);
     _tankDrive = new TankDrive(_driveTrain, _leftJoystick, _rightJoystick);
     _arcadeDrive = new ArcadeDrive(_driveTrain, _leftJoystick);
+    _tAD = new TimedAutoDrive(_driveTrain);
+
 
     _driveTrain.setDefaultCommand(_arcadeDrive);
 
@@ -55,6 +59,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return _tAD;
   }
 }
